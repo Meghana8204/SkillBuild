@@ -1,0 +1,6 @@
+Full Name: Meghana A R
+Email: meghanaar222@gmail.com
+Phone: 9741185015
+GitHub: https://github.com/Meghana8204
+
+Most Challenging Part: Designing the multi-role authentication system and ensuring proper role-based access control across both frontend and backend.
