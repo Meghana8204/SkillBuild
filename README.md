@@ -1,4 +1,4 @@
-# SkillBridge Attendance Management System
+SkillBridge Attendance Management System
 
 SkillBridge is a full-stack attendance management system for a multi-role skilling programme. It supports five roles with separate dashboards and permission-aware APIs:
 
@@ -13,7 +13,7 @@ This repository contains:
 - frontend/: React + Vite client
 - backend/: Express + MongoDB API
 
-## 1. Live URLs
+1. Live URLs
 
 - Frontend live URL: not found in the repository configuration
 - Backend live URL: `https://skillbuild-backend.onrender.com`
@@ -26,10 +26,9 @@ Note: the deployed backend URL is confirmed from [frontend/src/services/api.js](
 
 baseURL: "https://skillbuild-backend.onrender.com/api"
 
-## 2. Test Accounts
+2. Test Accounts
 
 No shared test/demo accounts are stored in this repository, and there is no seed script that creates fixed users automatically.
-
 Because signup is enabled in the app, the practical way to test all five roles is to create one account per role through the UI:
 
 - Student: create via /login (meghanaar222@gmail.com && 12345678)
@@ -45,15 +44,15 @@ Important behavior:
 - Institution users create their own institution identity.
 
 
-## 3. Local Setup Instructions
+3. Local Setup Instructions
 
-### Prerequisites
+Prerequisites
 
 - Node.js 18+
 - npm
 - MongoDB local instance or MongoDB Atlas
 
-### Backend setup
+Backend setup
 
 1. Go to the backend folder:
 
@@ -64,7 +63,7 @@ cd backend
 npm install
 
 
-3. Create `backend/.env` with:
+3. Create backend/.env with:
 
 env
 MONGO_URI=mongodb://127.0.0.1:27017/skillbridge
@@ -82,15 +81,14 @@ NODE_ENV=development
 
 node server.js
 
-The API runs at `http://localhost:5000`.
+The API runs at http://localhost:5000.
 
-### Frontend setup
+Frontend setup
 
 1. Go to the frontend folder:
 
 bash
 cd frontend
-
 
 2. Install dependencies:
 
@@ -110,7 +108,7 @@ npm run dev
 
 The app runs at `http://localhost:5173`.
 
-## 4. Schema Decisions
+5. Schema Decisions
 
 The backend uses a small relational-style design on top of MongoDB collections.
 
@@ -135,9 +133,9 @@ The backend uses a small relational-style design on top of MongoDB collections.
 - Attendance
   Stores one attendance record per studentId and sessionId, with a unique compound index. This prevents duplicate attendance rows for the same student/session pair.
 
-## 5. Stack Choices And Why
+6. Stack Choices And Why
 
-### Frontend
+ Frontend
 
 - React 19
   Chosen for component-based UI and route-based dashboards.
@@ -154,7 +152,7 @@ The backend uses a small relational-style design on top of MongoDB collections.
 - Tailwind CSS 4
   Used for rapid UI styling without creating a large custom CSS system.
 
-### Backend
+ Backend
 
 - Node.js + Express
   Chosen for a simple REST API structure and fast iteration.
@@ -174,13 +172,13 @@ The backend uses a small relational-style design on top of MongoDB collections.
 - Helmet, CORS, Morgan
   Used for basic API hardening, browser access control, and request logging.
 
-### Divergence from recommendations
+Divergence from recommendations
 
 - Authentication is implemented with custom JWT auth instead of Clerk or another managed auth provider. I chose this because it keeps the prototype self-contained and easier to run locally without third-party setup.
 
-## 6. Status: Fully Working, Partially Done, Skipped
+ 6. Status: Fully Working, Partially Done, Skipped
 
-### Fully working
+ Fully working
 
 - Multi-role signup and login
 - Protected frontend routes by role
@@ -190,6 +188,7 @@ The backend uses a small relational-style design on top of MongoDB collections.
 - Optional trainer assignment when an institution creates a batch
 - Student email assignment to a batch
 - Invite-link generation for batch joining
+- Copy the invite token, log out, open the link in a new tab, and log in as a student. After login, the student is redirected to the dashboard where assigned sessions are visible.
 - Student join-batch flow using invite token
 - Session creation by trainer
 - Session listing for trainer and student
@@ -198,7 +197,7 @@ The backend uses a small relational-style design on top of MongoDB collections.
 - Institution summary reporting
 - Programme-wide summary reporting for manager and monitoring officer
 
-### Partially done
+ Partially done
 
 - Live deployment documentation is only partially discoverable from the repo
   The backend live URL is visible, but the frontend live URL is not present in repository config.
@@ -209,26 +208,26 @@ The backend uses a small relational-style design on top of MongoDB collections.
 - Frontend environment handling
   The frontend API URL is hardcoded in code rather than using Vite environment variables.
 
-### Skipped
+ Skipped
 
 - Automated tests
 - Seed script for demo users and demo data
-- Environment example files such as a committed `.env.example`
+- Environment example files such as a committed env.example
 - Export features such as CSV/Excel reporting
 
-## 7. One Thing I Would Do Differently With More Time
+7. One Thing I Would Do Differently With More Time
 
 I would move configuration and demo setup into a cleaner onboarding flow: use environment variables on the frontend, add a proper seed script for all five roles plus sample batches/sessions, and include fixed reviewer accounts so the project can be evaluated immediately without manual setup.
 
-## API Overview
+ API Overview
 
-### Auth
+ Auth
 
 - `GET /api/auth/institutions`
 - `POST /api/auth/signup`
 - `POST /api/auth/login`
 
-### Batches
+ Batches
 
 - `POST /api/batches`
 - `GET /api/batches`
@@ -239,27 +238,27 @@ I would move configuration and demo setup into a cleaner onboarding flow: use en
 - `GET /api/batches/:batchId/students`
 - `POST /api/batches/:batchId/join`
 
-### Sessions
+Sessions
 
 - `POST /api/sessions`
 - `GET /api/sessions`
 
-### Attendance
+Attendance
 
 - `POST /api/attendance/mark`
 
-### Reports
+Reports
 
 - `GET /api/sessions/:sessionId/attendance`
 - `GET /api/batches/:batchId/summary`
 - `GET /api/institutions/:institutionId/summary`
 - `GET /api/programme/summary`
 
-### Health check
+Health check
 
 - `GET /health`
 
-## Project Structure
+ Project Structure
 
 Assignment/
 |-- backend/

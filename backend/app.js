@@ -18,69 +18,6 @@ const {
 
 const app = express();
 
-/*
-=================================
-ALLOWED ORIGINS
-=================================
-*/
-
-const allowedOrigins = [
-  "http://localhost:5173",
-  "https://skillbuild-ce3h.onrender.com",
-];
-
-/*
-=================================
-CORS CONFIGURATION
-=================================
-*/
-
-const corsOptions = {
-  origin: function (origin, callback) {
-    // Allow requests with no origin
-    // (Postman, mobile apps, etc.)
-    if (!origin) return callback(null, true);
-
-    if (allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error("Not allowed by CORS"));
-    }
-  },
-
-  credentials: true,
-
-  methods: [
-    "GET",
-    "POST",
-    "PUT",
-    "DELETE",
-    "PATCH",
-    "OPTIONS",
-  ],
-
-  allowedHeaders: [
-    "Content-Type",
-    "Authorization",
-  ],
-};
-
-app.use(cors(corsOptions));
-
-/*
-=================================
-HANDLE PREFLIGHT REQUESTS
-=================================
-*/
-
-app.options("*", cors(corsOptions));
-
-/*
-=================================
-MIDDLEWARES
-=================================
-*/
-
 app.use(helmet());
 
 app.use(express.json({ limit: "10kb" }));
