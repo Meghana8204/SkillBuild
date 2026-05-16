@@ -18,11 +18,84 @@ const {
 
 const app = express();
 
+/*
+=================================
+ALLOWED ORIGINS
+=================================
+*/
+
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://skillbuild-ce3h.onrender.com",
+];
+
+/*
+=================================
+CORS CONFIGURATION
+=================================
+*/
+
+const corsOptions = {
+  origin: function (origin, callback) {
+
+    // Allow requests without origin
+    // (Postman, mobile apps)
+
+    if (!origin) {
+      return callback(null, true);
+    }
+
+    if (allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+
+  credentials: true,
+
+  methods: [
+    "GET",
+    "POST",
+    "PUT",
+    "DELETE",
+    "PATCH",
+    "OPTIONS",
+  ],
+
+  allowedHeaders: [
+    "Content-Type",
+    "Authorization",
+  ],
+};
+
+app.use(cors(corsOptions));
+
+app.options("*", cors(corsOptions));
+
+/*
+=================================
+SECURITY
+=================================
+*/
+
 app.use(helmet());
+
+/*
+=================================
+BODY PARSER
+=================================
+*/
 
 app.use(express.json({ limit: "10kb" }));
 
 app.use(express.urlencoded({ extended: true }));
+
+/*
+=================================
+LOGGER
+=================================
+*/
 
 if (process.env.NODE_ENV !== "test") {
   app.use(
